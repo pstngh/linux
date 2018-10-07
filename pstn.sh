@@ -1,16 +1,7 @@
 #!/bin/bash
 
-if ! grep -q "\[multilib\]" /etc/pacman.conf; then
-sudo tee -a /etc/pacman.conf >/dev/null << EOF
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-EOF
-else
-sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-fi
 
-if ! pacman -Qi xorg-server > /dev/null ; then
-sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps lightdm xfce yay pulseaudio bash-completion #ttf-roboto ttf-ubuntu-font-family scrot
+sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps lightdm xfce4 yay pulseaudio bash-completion #ttf-roboto ttf-ubuntu-font-family scrot
 #sudo pacman -Syu --noconfirm --needed gpicview gvfs-smb lxappearance-obconf nitrogen gsimplecal volumeicon lxsession tint2 # polkit-gnome numix-gtk-theme numix-frost-themes ttf-ubuntu-font-family
 
 sudo tee /etc/lightdm/lightdm.conf << 'EOF'
@@ -23,7 +14,6 @@ session-wrapper=/etc/lightdm/Xsession
 autologin-user=pstn
 autologin-session=xfce
 EOF
-fi
 
 #sudo pacman -Rsn thunar geany gvim parole
 sudo pacman -Syu --noconfirm --needed xterm remmina nemo nemo-fileroller termite firefox wine winetricks libvncserver steam mpv pulseeffects calf gameconqueror pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu
@@ -149,3 +139,13 @@ rm -f ~/.local/share/mime/application/x-wine-extension*
 #find ~/.local/share -name "*wine*" | xargs --no-run-if-empty rm -r
 update-desktop-database ~/.local/share/applications
 update-mime-database ~/.local/share/mime/
+
+
+if ! grep -q "\[multilib\]" /etc/pacman.conf; then
+sudo tee -a /etc/pacman.conf >/dev/null << EOF
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+EOF
+else
+sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+fi
