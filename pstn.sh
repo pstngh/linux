@@ -1,7 +1,13 @@
 #!/bin/bash
 
+#yay
+sudo pacman -S git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 
-sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps lightdm xfce4 yay pulseaudio bash-completion #ttf-roboto ttf-ubuntu-font-family scrot
+
+sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps lightdm xfce4 pulseaudio bash-completion #ttf-roboto ttf-ubuntu-font-family scrot
 #sudo pacman -Syu --noconfirm --needed gpicview gvfs-smb lxappearance-obconf nitrogen gsimplecal volumeicon lxsession tint2 # polkit-gnome numix-gtk-theme numix-frost-themes ttf-ubuntu-font-family
 
 sudo tee /etc/lightdm/lightdm.conf << 'EOF'
