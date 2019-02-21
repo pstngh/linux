@@ -25,7 +25,13 @@ EOF
 sudo gpasswd -a pulse audio
 #sudo systemctl enable fstrim.timer
 
-wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-sudo dpkg -i teamviewer_amd64.deb
+#wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+#sudo dpkg -i teamviewer_amd64.deb
 
+cd /tmp && wget https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc
+sudo apt-key add TeamViewer2017.asc
+
+sudo sh -c 'echo "deb http://linux.teamviewer.com/deb stable main" >> /etc/apt/sources.list.d/teamviewer.list'
+sudo apt update -y
+sudo apt install teamviewer -y
 teamviewer
