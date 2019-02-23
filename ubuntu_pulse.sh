@@ -10,7 +10,7 @@ sudo add-apt-repository ppa:scribus/ppa -y
 #
 sudo apt update -y
 sudo apt install mpv rhythmbox paper-icon-theme arc-theme gimp gnome-disk-utility scribus -y
-sudo apt install --install-recommends winehq-stable
+sudo apt install --install-recommends winehq-stable -y
 
 #mouseacc
 sudo tee /usr/share/X11/xorg.conf.d/50-mouse.conf >/dev/null << EOF
