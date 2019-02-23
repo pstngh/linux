@@ -1,37 +1,43 @@
 #!/bin/bash
 
-sudo apt-get --purge autoremove thunderbird parole pidgin xfburn gnome-mines gnome-sudoku sgt-puzzles ristretto simple-scan blueman bluez* -y
-sudo dpkg --add-architecture i386
-wget -nc https://dl.winehq.org/wine-builds/winehq.key
-sudo apt-key add winehq.key
-sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
-sudo add-apt-repository ppa:snwh/ppa -y
-sudo add-apt-repository ppa:scribus/ppa -y
-#
-sudo apt update -y
-sudo apt install mpv rhythmbox paper-icon-theme arc-theme gimp gnome-disk-utility scribus -y
-sudo apt install --install-recommends winehq-stable -y
+
+#apps
+sudo pacman -Syu --noconfirm --needed mpv rhythmbox
+#yay -S --noconfirm scribus
+#yay -S --noconfirm gimp
+#yay -S --noconfirm kodi
+#yay -S --noconfirm skypeforlinux-bin
+yay -Syu --noconfirm teamviewer-beta
+#yay -S --noconfirm tiny-media-manager
+#yay -S --noconfirm filebot
+#yay -S --noconfirm youtube-dl-gui-git
+#yay -S --noconfirm paper-icon-theme-git
+#yay -S --noconfirm arc-gtk-theme
+#yay -S --noconfirm wire-desktop
+
+#sudo gpasswd -a pulse audio
+
+#sudo cpupower frequency-set -g performance
+
+sudo systemctl enable fstrim.timer
 
 #mouseacc
-sudo tee /usr/share/X11/xorg.conf.d/50-mouse.conf >/dev/null << EOF
+sudo tee /etc/X11/xorg.conf.d/50-mouse-acceleration.conf &>/dev/null << EOF
 Section "InputClass"
-	Identifier "Mouse"
+	Identifier "My Mouse"
 	Driver "libinput"
 	MatchIsPointer "yes"
 	Option "AccelProfile" "flat"
 EndSection
 EOF
 
-sudo gpasswd -a pulse audio
-#sudo systemctl enable fstrim.timer
+cd
+wget https://download.teamviewer.com/download/version_11x/teamviewer_qs.tar.gz -O teamviewer.tar.xz
+tar xf teamviewer.tar.xz
 
-#wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-#sudo dpkg -i teamviewer_amd64.deb
+echo ubuntu | sudo -S systemctl enable teamviewerd.service
+echo ubuntu | sudo -S systemctl start teamviewerd.service
 
-cd /tmp && wget https://download.teamviewer.com/download/linux/signature/TeamViewer2017.asc
-sudo apt-key add TeamViewer2017.asc
 
-sudo sh -c 'echo "deb http://linux.teamviewer.com/deb stable main" >> /etc/apt/sources.list.d/teamviewer.list'
-sudo apt update -y
-sudo apt install teamviewer -y
+
 teamviewer
