@@ -1,0 +1,55 @@
+timedatectl set-ntp true
+fdisk -l
+fdisk /dev/sda
+g
+n
+1
+enter
++512M
+t
+1
+w
+__
+n
+2?
+enter
+enter
+w
+
+mkfs.ext4 -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
+mount /dev/sda2 /mnt
+
+pacstrap /mnt base base-devel
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+echo "arch" > /etc/hostname
+pacman -S #grub refind-efi efibootmgr dosfstools os-prober mtools intel-ucode
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+
+
+nano /etc/locale.gen > 
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+
+
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+export LANG=en_US.UTF-8
+
+passwd
+useradd -mg users -G wheel,storage,power -s /bin/bash pstn
+passwd pstn
+nano /etc/sudoers
+mkdir /boot/efi
+mount /dev/sda1 /boot/efi
+refind-install --usedefault /dev/sda1 # --alldrivers
+
+mkdir /boot/efi
+mount /dev/sda1 /boot/efi
+grub-install --target=x86_64-efi  --bootloader-id=grub_uefi --recheck
+#grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi --recheck
+grub-mkconfig -o /boot/grub/grub.cfg
+exit
+umount -a
+telinit 6
