@@ -8,15 +8,14 @@ enter
 +512M
 t
 1
-w
 __
 n
-2?
+enter
 enter
 enter
 w
 
-mkfs.ext4 -F32 /dev/sda1
+mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 
@@ -25,7 +24,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 echo "arch" > /etc/hostname
 pacman -S #grub refind-efi efibootmgr dosfstools os-prober mtools intel-ucode
-ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
 
 
 nano /etc/locale.gen > 
