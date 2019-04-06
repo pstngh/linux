@@ -10,8 +10,8 @@ sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 fi
 #sudo sh -c "sed -i '/\[multilib\]/,/Include/s/^[ ]*#//' /etc/pacman.conf"
 
-sudo groupadd -r autologin
-sudo gpasswd -a pstn autologin
+#sudo groupadd -r autologin
+#sudo gpasswd -a pstn autologin
 
 sudo pacman -Syu --noconfirm git
 git clone https://aur.archlinux.org/yay.git
