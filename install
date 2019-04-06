@@ -52,6 +52,7 @@ groupadd -r autologin
 gpasswd -a pstn autologin
 passwd pstn
 nano /etc/sudoers
+uncomment wheel
 systemctl enable dhcpcd
 
 mkdir /boot/efi
