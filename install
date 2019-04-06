@@ -52,3 +52,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 exit
 umount -a
 telinit 6
+
+__
+
+sudo systemctl enable/start dhcpcd
+curl -O link
