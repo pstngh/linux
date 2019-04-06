@@ -16,7 +16,7 @@ cd yay
 makepkg -si  --noconfirm
 
 #sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs lightdm lightdm-gtk-greeter #gdm
-sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4 lxappearance noto-fonts ttf-roboto ttf-ubuntu-font-family ttf-dejavu xdg-user-dirs gvfs-mtp libmtp lightdm
+sudo pacman -Syu --noconfirm --needed linux-lts xorg-server xorg-apps pulseaudio bash-completion xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4 noto-fonts ttf-roboto ttf-ubuntu-font-family ttf-dejavu xdg-user-dirs gvfs-mtp libmtp lightdm
 
 #sudo pacman -Rsn thunar geany gvim parole
 sudo pacman -Syu --noconfirm --needed xterm remmina nemo nemo-fileroller firefox wine winetricks libvncserver steam mpv pulseeffects calf gameconqueror pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak
@@ -24,7 +24,7 @@ sudo pacman -Syu --noconfirm --needed xterm remmina nemo nemo-fileroller firefox
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
 yay -S --noconfirm paper-icon-theme-git
-yay -S --noconfirm flat-remix-gtk-git
+yay -S --noconfirm adapta-gtk-theme
 #yay -S --noconfirm flat-remix-gnome-git
 yay -S --noconfirm acestream-launcher
 yay -S --noconfirm plex-media-player
@@ -32,6 +32,8 @@ yay -S --noconfirm plex-media-player
 #yay -S --noconfirm protontricks-git
 #yay -S --noconfirm ttf-ms-fonts
 yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui
+
+sudo pacman -Rdd thunar
 
 #Flatpak
 flatpak install flathub com.discordapp.Discord
@@ -145,8 +147,6 @@ sudo systemctl enable lightdm
 #systemctl start gdm
 #sudo systemctl enable gdm
 
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
 mkdir -p ~/.ACEStream
 ln -s /mnt/ubuntu/6TB/.acestream_cache ~/.ACEStream
 
@@ -164,3 +164,9 @@ xdg-user-dirs-update --set DOWNLOAD /mnt/ubuntu/6TB/dl
 #esync
 sudo sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
 sudo systemctl daemon-reexec
+
+sudo pacman -R linux
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
