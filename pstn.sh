@@ -16,7 +16,7 @@ cd yay
 makepkg -si  --noconfirm
 
 #sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs lightdm lightdm-gtk-greeter #gdm
-sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce lxappearance noto-fonts ttf-roboto ttf-ubuntu-font-family ttf-dejavu xdg-user-dirs gvfs-mtp libmtp lightdm
+sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4 lxappearance noto-fonts ttf-roboto ttf-ubuntu-font-family ttf-dejavu xdg-user-dirs gvfs-mtp libmtp lightdm
 
 #sudo pacman -Rsn thunar geany gvim parole
 sudo pacman -Syu --noconfirm --needed xterm remmina nemo nemo-fileroller firefox wine winetricks libvncserver steam mpv pulseeffects calf gameconqueror pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak
