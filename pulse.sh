@@ -22,9 +22,9 @@ yay -Syu --noconfirm teamviewer-beta
 sudo systemctl enable fstrim.timer
 
 #mouseacc
-sudo tee /etc/X11/xorg.conf.d/50-mouse-acceleration.conf &>/dev/null << EOF
+sudo tee /etc/X11/xorg.conf.d/50-mouse.conf &>/dev/null << EOF
 Section "InputClass"
-	Identifier "My Mouse"
+	Identifier "Mouse"
 	Driver "libinput"
 	MatchIsPointer "yes"
 	Option "AccelProfile" "flat"
