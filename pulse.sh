@@ -11,7 +11,6 @@ sudo pacman -Syu --noconfirm --needed mpv rhythmbox
 #yay -S --noconfirm tiny-media-manager
 #yay -S --noconfirm youtube-dl-gui-git
 yay -S --noconfirm paper-icon-theme
-yay -S --noconfirm arc-gtk-theme
 yay -S --noconfirm wire-desktop
 yay -S --noconfirm adapta-gtk-theme
 yay -S --noconfirm anydesk
