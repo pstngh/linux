@@ -23,36 +23,22 @@ mount /dev/sda2 /mnt
 pacstrap /mnt base base-devel
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
+hwclock --systohc --utc
+nano /etc/locale.gen -> uncomment ONLY en_US.UTF-8 UTF-8
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+######export LANG=en_US.UTF-8
+
+
 echo "arch" > /etc/hostname
 pacman -S grub efibootmgr dosfstools os-prober mtools intel-ucode
-ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
-
-_____
-nano /etc/locale.gen
-locale-gen
-echo LANG=en_US.UTF-8 > /etc/locale.conf
-export LANG=en_US.UTF-8
- 
-ls /usr/share/zoneinfo/
-ln -s /usr/share/zoneinfo/<zone>/ /etc/localtime
-hwclock --systohc --utc
-___
-
-
-nano /etc/locale.gen > 
-en_US.UTF-8 UTF-8
-en_US ISO-8859-1
-locale-gen
-echo LANG=en_US.UTF-8 > /etc/locale.conf
-export LANG=en_US.UTF-8
 
 passwd
-useradd -mg users -G wheel,storage,power -s /bin/bash pstn
 groupadd -r autologin
-gpasswd -a pstn autologin
+useradd -mg users -G wheel,autologin -s /bin/bash pstn ## SHELL?
 passwd pstn
 nano /etc/sudoers
-uncomment wheel
 systemctl enable dhcpcd
 
 mkdir /boot/efi
