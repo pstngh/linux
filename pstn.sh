@@ -10,34 +10,28 @@ sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 fi
 #sudo sh -c "sed -i '/\[multilib\]/,/Include/s/^[ ]*#//' /etc/pacman.conf"
 
-#sudo groupadd -r autologin
-#sudo gpasswd -a pstn autologin
+sudo groupadd -r autologin
+sudo gpasswd -a pstn autologin
 
 sudo pacman -Syu --noconfirm git
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si  --noconfirm
 
-#sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs lightdm lightdm-gtk-greeter #gdm
-sudo pacman -Syu --noconfirm --needed linux-lts xorg-server xorg-apps pulseaudio bash-completion xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4 noto-fonts ttf-roboto ttf-ubuntu-font-family ttf-dejavu xdg-user-dirs gvfs-mtp libmtp lightdm
+sudo pacman -Syu --noconfirm --needed linux-lts xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator
 
-#sudo pacman -Rsn thunar geany gvim parole
-sudo pacman -Syu --noconfirm --needed xterm remmina nemo nemo-fileroller firefox wine winetricks libvncserver steam mpv pulseeffects calf gameconqueror pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak
+sudo pacman -Syu --noconfirm --needed xterm remmina nemo nemo-fileroller firefox wine-staging winetricks libvncserver steam mpv pulseeffects calf pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak flirc-bin gnome-system-monitor
 #sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
 yay -S --noconfirm paper-icon-theme-git
 yay -S --noconfirm adapta-gtk-theme
-#yay -S --noconfirm flat-remix-gnome-git
 yay -S --noconfirm acestream-launcher
 yay -S --noconfirm plex-media-player
-#yay -S --noconfirm discord
-#yay -S --noconfirm protontricks-git
-#yay -S --noconfirm ttf-ms-fonts
-yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui
+#yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui flat-remix-gnome-git
 
-sudo pacman -Rdd thunar
-
+#sudo sh -c 'echo sg > /etc/modules-load.d/sg.conf'
+#sudo pacman -Rdd thunar
 #Flatpak
 flatpak install flathub com.discordapp.Discord
 
@@ -70,7 +64,7 @@ ace () {
 acestream-launcher acestream://"$1"
 }
 
-cleanwine() {
+cleanwine () {
 rm ~/.local/share/applications/wine*.desktop
 rm ~/.local/share/applications/wine-*
 rm -f ~/.local/share/applications/wine-extension*.desktop
@@ -123,19 +117,11 @@ sudo tee /etc/default/cpupower >/dev/null << EOF
 governor='performance'
 EOF
 
-sudo tee /etc/lightdm/lightdm.conf << 'EOF'
-[LightDM]
-run-directory=/run/lightdm
-
-[Seat:*]
-user-session=xfce
-session-wrapper=/etc/lightdm/Xsession
-autologin-user=pstn
-autologin-session=xfce
-EOF
-
 #VPN
 #yay -S --noconfirm openvpn-update-systemd-resolved
+#systemctl enable --now systemd-resolved.service
+#sudo openvpn --config x.ovpn
+
 
 cp -RT /mnt/Storage/Files/config/.config/ ~/.config/
 #shortcuts
@@ -143,12 +129,9 @@ sudo cp /mnt/Storage/Files/shortcuts/desktop/*.desktop /usr/share/applications
 sudo cp /mnt/Storage/Files/scripts/copy/*.png /usr/share/icons
 
 systemctl --user enable redshift
-#sudo systemctl enable teamviewerd
 sudo systemctl enable cpupower
 sudo systemctl enable fstrim.timer
-sudo systemctl enable lightdm
-#systemctl start gdm
-#sudo systemctl enable gdm
+sudo systemctl enable gdm
 
 mkdir -p ~/.ACEStream
 ln -s /mnt/ubuntu/6TB/.acestream_cache ~/.ACEStream
@@ -156,20 +139,54 @@ ln -s /mnt/ubuntu/6TB/.acestream_cache ~/.ACEStream
 #sudo systemctl enable systemd-networkd-wait-online
 xdg-user-dirs-update
 xdg-user-dirs-update --set MUSIC /mnt/Storage/Music
-xdg-user-dirs-update --set DOWNLOAD /mnt/ubuntu/6TB/dl
+xdg-user-dirs-update --set DOWNLOAD /mnt/ubuntu/6TB/Downloads
+xdg-user-dirs-update --set PICTURES /mnt/Storage/Files/wallpaper
+
+####GNOME TWEAKS
+gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
+gsettings set org.gnome.desktop.interface icon-theme 'Paper'
+gsettings set org.gnome.desktop.background show-desktop-icons 'true'
+#gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+gsettings set org.gnome.desktop.interface enable-animations 'false'
+gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
+gsettings set org.gnome.desktop.wm.preferences num-workspaces '1'
+#gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
+gsettings set org.gnome.desktop.interface clock-format '12h'
+
+#gsettings set org.gnome.rhythmbox.rhythmdb locations ['file:///mnt/Storage/Music']
+
+
+#gsettings set org.gnome.shell favorite-apps '['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'firefox.desktop', 'fsearch.desktop', 'night.desktop', '144hz.desktop', 'clone.desktop', 'vnc.desktop', 'rhythmbox.desktop', 'steam-native.desktop']'
+
+
+#gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
+
+
+#install gnome extensions
+sudo rm -rf /usr/share/gnome-shell/extensions
+wget -O steal-my-focus@kagesenshi.org.zip "https://github.com/tak0kada/gnome-shell-extension-stealmyfocus/archive/master.zip"
+#curl -L -O https://github.com/tak0kada/gnome-shell-extension-stealmyfocus/archive/master.zip
+unzip steal-my-focus@kagesenshi.org.zip
+mv gnome-shell-extension-stealmyfocus-master ~/.local/share/gnome-shell/extensions/steal-my-focus@kagesenshi.org
+rm ~/.local/share/gnome-shell/extensions/steal-my-focus@kagesenshi.org/Makefile
+rm ~/.local/share/gnome-shell/extensions/steal-my-focus@kagesenshi.org/README.md
+wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
+sudo chmod +x gnome-shell-extension-installer
+sudo mv gnome-shell-extension-installer /usr/bin/
+gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell
+
 
 #winetricks
 #winetricks corefonts
 #winetricks tahoma
 
 #sudo pacman -Rscn --noconfirm thunar
-
+#yay -S --noconfirm discord
+#yay -S --noconfirm protontricks-git
+#yay -S --noconfirm ttf-ms-fonts
 #esync
 sudo sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
 sudo systemctl daemon-reexec
-
+#xset dpms 0 0 600
 sudo pacman -R linux
 sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-
-
