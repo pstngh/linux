@@ -20,8 +20,9 @@ makepkg -si  --noconfirm
 
 sudo pacman -Syu --noconfirm --needed linux-lts xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator
 
-sudo pacman -Syu --noconfirm --needed xterm wget remmina nemo gvfs-mtp nemo-fileroller firefox wine-staging winetricks libvncserver steam mpv pulseeffects calf pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak flirc-bin gnome-system-monitor
+sudo pacman -Syu --noconfirm --needed xterm wget remmina nemo gvfs-mtp nemo-fileroller firefox wine-staging winetricks libvncserver steam mpv pulseeffects calf pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak gnome-system-monitor
 #sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox
+yay -S --noconfirm flirc-bin
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
 yay -S --noconfirm paper-icon-theme-git
