@@ -16,25 +16,30 @@ sudo gpasswd -a pstn autologin
 sudo pacman -Syu --noconfirm git
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si  --noconfirm
+makepkg -si --noconfirm
 
-sudo pacman -Syu --noconfirm --needed linux-lts xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator
+sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator gnome-terminal gnome-disk-utility bluez bluez-utils
 
-sudo pacman -Syu --noconfirm --needed xterm wget remmina nemo gvfs-mtp nemo-fileroller firefox wine-staging winetricks libvncserver steam mpv pulseeffects calf pavucontrol rhythmbox cpupower steam-native-runtime vulkan-radeon xf86-video-amdgpu mousepad flatpak gnome-system-monitor
-#sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox
-yay -S --noconfirm flirc-bin
+#sudo pacman -Syu --noconfirm -needed xorg-server xorg-apps lightdm-gtk-greeter xfce4 bash-completion
+#sudo pacman -Rs xfce4-power-manager xfwm4-themes xfce4-appfinder tumbler thunar-volman
+sudo pacman -Syu --noconfirm --needed xterm remmina nemo gvfs-mtp nemo-fileroller gthumb firefox android-tools wine-staging winetricks libvncserver steam mpv pavucontrol rhythmbox cpupower steam-native-runtime mousepad gnome-system-monitor
+#sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox xf86-video-amdgpu pulseeffects calf flatpak vulkan-radeon
+sudo pacman -S ttf-roboto noto-fonts ttf-ubuntu-font-family
+yay -Syy --noconfirm flirc-bin
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
 yay -S --noconfirm paper-icon-theme-git
 yay -S --noconfirm adapta-gtk-theme
 yay -S --noconfirm acestream-launcher
 yay -S --noconfirm plex-media-player
+#yay -S --noconfirm scrcpy
+
 #yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui flat-remix-gnome-git
 
 #sudo sh -c 'echo sg > /etc/modules-load.d/sg.conf'
 #sudo pacman -Rdd thunar
 #Flatpak
-flatpak install flathub com.discordapp.Discord
+#flatpak install flathub com.discordapp.Discord
 
 #mouseacc
 mkdir -p /etc/X11/xorg.conf.d/
@@ -48,14 +53,14 @@ EndSection
 EOF
 
 #amdgpu_tweaks
-mkdir -p /etc/X11/xorg.conf.d/
-sudo tee /etc/X11/xorg.conf.d/20-amdgpu.conf >/dev/null << EOF
-Section "Device"
-	Identifier "AMD"
-	Driver "amdgpu"
-	Option "TearFree" "false"
-EndSection
-EOF
+#mkdir -p /etc/X11/xorg.conf.d/
+#sudo tee /etc/X11/xorg.conf.d/20-amdgpu.conf >/dev/null << EOF
+#Section "Device"
+#	Identifier "AMD"
+#	Driver "amdgpu"
+#	Option "TearFree" "false"
+#EndSection
+#EOF
 
 #aliases
 if ! grep -q acestream ~/.bashrc; then
@@ -95,15 +100,15 @@ sudo sysctl --system
 
 
 #NETWORK SHARE
-sudo mkdir -p /mnt/Storage
-sudo mkdir -p /mnt/ubuntu
-if ! grep -q 192.168.1.197 /etc/fstab; then
-sudo tee -a /etc/fstab >/dev/null << 'EOF'
-LABEL=Storage /mnt/Storage auto nosuid,nodev,nofail,noatime 0 0
-//192.168.1.197/ubuntu /mnt/ubuntu cifs vers=1.0,guest,uid=pstn,comment=systemd.automount,nofail,rw,guest 0 0
-EOF
-fi
-sudo mount -a
+#sudo mkdir -p /mnt/Storage
+#sudo mkdir -p /mnt/ubuntu
+#if ! grep -q 192.168.1.197 /etc/fstab; then
+#sudo tee -a /etc/fstab >/dev/null << 'EOF'
+#LABEL=Storage /mnt/Storage auto nosuid,nodev,nofail,noatime 0 0
+#//192.168.1.197/ubuntu /mnt/ubuntu cifs vers=1.0,guest,uid=pstn,comment=systemd.automount,nofail,rw,guest 0 0
+#EOF
+#fi
+#sudo mount -a
 
 #gsettings set org.cinnamon.desktop.default-applications.terminal exec 'termite'
 
@@ -147,12 +152,26 @@ xdg-user-dirs-update --set PICTURES /mnt/Storage/Files/wallpaper
 gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
 gsettings set org.gnome.desktop.interface icon-theme 'Paper'
 gsettings set org.gnome.desktop.background show-desktop-icons 'true'
-#gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
+gsettings set org.gnome.desktop.wm.preferences focus-new-windows 'strict'
 gsettings set org.gnome.desktop.interface enable-animations 'false'
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 gsettings set org.gnome.desktop.wm.preferences num-workspaces '1'
-#gsettings set org.gnome.shell.extensions.user-theme name 'Arc-Dark'
 gsettings set org.gnome.desktop.interface clock-format '12h'
+gsettings set org.gnome.desktop.interface cursor-theme 'Breeze'
+gsettings set org.gnome.desktop.interface gtk-theme 'Adapta-Nokto-Eta'
+gsettings set org.gnome.desktop.wm.preferences focus-new-windows 'strict'
+gsettings set org.gnome.desktop.wm.preferences num-workspaces '1'
+gsettings set org.gnome.desktop.notifications show-banners 'false'
+gsettings set org.gnome.desktop.notifications show-in-lock-screen 'false'
+gsettings set org.gnome.desktop.privacy disable-camera 'true'
+gsettings set org.gnome.desktop.privacy remember-recent-files 'false'
+gsettings set org.gnome.desktop.privacy remember-app-usage 'false'
+gsettings set org.gnome.desktop.screensaver lock-enabled 'false'
+gsettings set org.gnome.desktop.search-providers disable-external 'true'
+gsettings set org.gnome.desktop.session idle-delay '0'
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+gsettings set org.gnome.shell favorite-apps ['firefox.desktop', 'nemo.desktop', 'rhythmbox.desktop', 'plex.desktop', 'vnc.desktop', 'steam-native.desktop', 'windows.desktop', 'org.gnome.Terminal.desktop']
+
 
 #gsettings set org.gnome.rhythmbox.rhythmdb locations ['file:///mnt/Storage/Music']
 
@@ -165,16 +184,11 @@ gsettings set org.gnome.desktop.interface clock-format '12h'
 
 #install gnome extensions
 sudo rm -rf /usr/share/gnome-shell/extensions
-wget -O steal-my-focus@kagesenshi.org.zip "https://github.com/tak0kada/gnome-shell-extension-stealmyfocus/archive/master.zip"
 #curl -L -O https://github.com/tak0kada/gnome-shell-extension-stealmyfocus/archive/master.zip
-unzip steal-my-focus@kagesenshi.org.zip
-mv gnome-shell-extension-stealmyfocus-master ~/.local/share/gnome-shell/extensions/steal-my-focus@kagesenshi.org
-rm ~/.local/share/gnome-shell/extensions/steal-my-focus@kagesenshi.org/Makefile
-rm ~/.local/share/gnome-shell/extensions/steal-my-focus@kagesenshi.org/README.md
 wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
 sudo chmod +x gnome-shell-extension-installer
 sudo mv gnome-shell-extension-installer /usr/bin/
-gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell
+gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell #1236
 
 
 #winetricks
@@ -189,5 +203,5 @@ gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell
 sudo sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
 sudo systemctl daemon-reexec
 #xset dpms 0 0 600
-sudo pacman -R linux
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+#sudo pacman -R linux
+#sudo grub-mkconfig -o /boot/grub/grub.cfg
