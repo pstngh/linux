@@ -19,12 +19,11 @@ cd yay
 makepkg -si --noconfirm
 
 sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator gnome-terminal gnome-disk-utility bluez bluez-utils
-
 #sudo pacman -Syu --noconfirm -needed xorg-server xorg-apps lightdm-gtk-greeter xfce4 bash-completion
 #sudo pacman -Rs xfce4-power-manager xfwm4-themes xfce4-appfinder tumbler thunar-volman
-sudo pacman -Syu --noconfirm --needed xterm remmina nemo gvfs-mtp nemo-fileroller gthumb firefox android-tools wine-staging winetricks libvncserver steam mpv pavucontrol rhythmbox cpupower steam-native-runtime mousepad gnome-system-monitor
+sudo pacman -Syu --noconfirm --needed xterm remmina nemo gvfs-mtp nemo-fileroller gthumb firefox android-tools wine winetricks libvncserver steam mpv pavucontrol rhythmbox cpupower steam-native-runtime mousepad gnome-system-monitor
 #sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox xf86-video-amdgpu pulseeffects calf flatpak vulkan-radeon
-sudo pacman -S ttf-roboto noto-fonts ttf-ubuntu-font-family
+sudo pacman -S ttf-roboto noto-fonts
 yay -Syy --noconfirm flirc-bin
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
