@@ -29,6 +29,9 @@ locale-gen
 nano /etc/locale.gen -> uncomment ONLY en_US.UTF-8 UTF-8
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ######export LANG=en_US.UTF-8
+#echo LANG=en_US.UTF-8 >> /etc/locale.conf
+#echo LANGUAGE=en_US >> /etc/locale.conf
+#echo LC_ALL=C >> /etc/locale.conf
 
 
 echo "arch" > /etc/hostname
