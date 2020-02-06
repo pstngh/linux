@@ -20,13 +20,13 @@ mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 
-pacstrap /mnt base base-devel
+pacstrap /mnt base linux linux-firmware #dhcpcd
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
 hwclock --systohc --utc
-nano /etc/locale.gen -> uncomment ONLY en_US.UTF-8 UTF-8
 locale-gen
+nano /etc/locale.gen -> uncomment ONLY en_US.UTF-8 UTF-8
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ######export LANG=en_US.UTF-8
 
