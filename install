@@ -35,7 +35,7 @@ echo LANG=en_US.UTF-8 > /etc/locale.conf
 
 
 echo "arch" > /etc/hostname
-pacman -S grub efibootmgr dosfstools os-prober mtools intel-ucode
+pacman -S grub efibootmgr os-prober
 
 passwd
 groupadd -r autologin
