@@ -30,7 +30,7 @@ yay -S --noconfirm redshift-minimal
 yay -S --noconfirm paper-icon-theme-git
 yay -S --noconfirm adapta-gtk-theme
 yay -S --noconfirm acestream-launcher
-yay -S --noconfirm plex-media-player
+#yay -S --noconfirm plex-media-player
 #yay -S --noconfirm scrcpy
 
 #yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui flat-remix-gnome-git
