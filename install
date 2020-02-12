@@ -25,10 +25,13 @@ genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
 hwclock --systohc --utc
-locale-gen
+
 nano /etc/locale.gen -> uncomment ONLY en_US.UTF-8 UTF-8
+locale-gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
-######export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+_________IF THERE'S ANY ISSUES___________ 1 should be done already
 #echo LANG=en_US.UTF-8 >> /etc/locale.conf
 #echo LANGUAGE=en_US >> /etc/locale.conf
 #echo LC_ALL=C >> /etc/locale.conf
@@ -39,14 +42,22 @@ pacman -S grub efibootmgr os-prober
 
 passwd
 groupadd -r autologin
-useradd -mg users -G wheel,autologin -s /bin/bash pstn ## SHELL?
+useradd -mg users -G wheel,storage,power,autologin -s /bin/bash pstn
 passwd pstn
 nano /etc/sudoers
-systemctl enable dhcpcd
+### systemctl enable dhcpcd
 
 mkdir /boot/efi
 mount /dev/sda1 /boot/efi
 grub-install --target=x86_64-efi  --bootloader-id=grub_uefi --recheck
+
+______IF WINDOWS IS INSTALLED ON SAME DRIVE -> IF SDA1 is WINDOWS EFI PARTITION
+mount /dev/sda1 /boot
+grub-install --target=x86_64-efi --efi-directory=/boo --bootloader-id=GRUB
+mkdir /mnt/windows
+mount /sda2 /mnt/windows (NTFS partition)
+_______________________________________________________________________________
+
 grub-mkconfig -o /boot/grub/grub.cfg
 exit
 umount -a
