@@ -44,12 +44,16 @@ passwd
 groupadd -r autologin
 useradd -mg users -G wheel,storage,power,autologin -s /bin/bash pstn
 passwd pstn
-nano /etc/sudoers
+nano /etc/sudoers ------- OR EDITOR=nano visudo
+---- UNCOMMENT %wheel ALL=(ALL) ALL
+
 ### systemctl enable dhcpcd
 
+______IF DIFFERENT DRIVES____________________________________________________
 mkdir /boot/efi
 mount /dev/sda1 /boot/efi
 grub-install --target=x86_64-efi  --bootloader-id=grub_uefi --recheck
+_____________________________________________________________________________
 
 ______IF WINDOWS IS INSTALLED ON SAME DRIVE -> IF SDA1 is WINDOWS EFI PARTITION
 mount /dev/sda1 /boot
