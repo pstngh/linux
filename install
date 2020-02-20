@@ -1,68 +1,62 @@
-timedatectl set-ntp true
 fdisk -l
-fdisk /dev/sda
-g
-n
-1
-enter
-+512M
-t
-1
-w
-__
-n
-2?
-enter
-enter
-w
+fdisk /dev/sd*
 
-mkfs.fat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
-mount /dev/sda2 /mnt
+SCENARIO 1 - If single OS on drive, create fat boot partition - g / n / 1 / enter / +512M / t / 1 / w
+and continue with next partition creation
+--------
+If installing next to windows on same drive, only do this - n / enter / enter / enter / w
 
-pacstrap /mnt base base-devel linux linux-firmware nano #dhcpcd
+
+mkfs.fat -F32 /dev/sd*F (SCENARIO 1 - CREATING FAT BOOT PARTITION)
+mkfs.ext4 /dev/sd*L
+mount /dev/sd*L /mnt
+mkdir /mnt/boot (SCENARIO 2)
+mount /dev/sd*EFI /mnt/boot (SCENARIO 2 - THIS IS THE WINDOWS EFI SYSTEM PARTITION)
+
+timedatectl set-ntp true
+pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
-ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
-hwclock --systohc --utc
+pacman -S grub efibootmgr os-prober
+
+_IF DIFFERENT DRIVES_
+mkdir /boot/efi
+mount /dev/sd*F /boot/efi
+grub-install --target=x86_64-efi  --bootloader-id=grub --recheck
+_
+
+_IF WINDOWS IS INSTALLED ON SAME DRIVE -> SD*EFI is WINDOWS EFI PARTITION
+mount /dev/sd*EFI /boot (EFI PARTITION)
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+mkdir /mnt/windows
+mount /sd*W /mnt/windows (NTFS partition)
+_
+grub-mkconfig -o /boot/grub/grub.cfg
+_
+
+systemctl enable dhcpcd
+
+passwd
+groupadd -r autologin
+useradd -mg users -G wheel,storage,power,autologin -s /bin/bash pstn
+passwd pstn
+EDITOR=nano visudo
+_UNCOMMENT %wheel ALL=(ALL) ALL
 
 nano /etc/locale.gen -> uncomment ONLY en_US.UTF-8 UTF-8
 locale-gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 export LANG=en_US.UTF-8
 
-_________IF THERE'S ANY ISSUES___________ 1 should be done already
-#echo LANG=en_US.UTF-8 >> /etc/locale.conf
-#echo LANGUAGE=en_US >> /etc/locale.conf
-#echo LC_ALL=C >> /etc/locale.conf
-
-
+ln -sf /usr/share/zoneinfo/America/Toronto /etc/localtime
+hwclock --systohc --utc
 echo "arch" > /etc/hostname
-pacman -S grub efibootmgr os-prober
 
-passwd
-groupadd -r autologin
-useradd -mg users -G wheel,storage,power,autologin -s /bin/bash pstn
-passwd pstn
-nano /etc/sudoers ------- OR EDITOR=nano visudo
----- UNCOMMENT %wheel ALL=(ALL) ALL
-
-### systemctl enable dhcpcd
-
-______IF DIFFERENT DRIVES____________________________________________________
-mkdir /boot/efi
-mount /dev/sda1 /boot/efi
-grub-install --target=x86_64-efi  --bootloader-id=grub_uefi --recheck
-_____________________________________________________________________________
-
-______IF WINDOWS IS INSTALLED ON SAME DRIVE -> IF SDA1 is WINDOWS EFI PARTITION
-mount /dev/sda1 /boot
-grub-install --target=x86_64-efi --efi-directory=/boo --bootloader-id=GRUB
-mkdir /mnt/windows
-mount /sda2 /mnt/windows (NTFS partition)
-_______________________________________________________________________________
-
-grub-mkconfig -o /boot/grub/grub.cfg
 exit
 umount -a
 telinit 6
+
+_IF THERE'S ANY ISSUES_ 1st should be done already
+#echo LANG=en_US.UTF-8 >> /etc/locale.conf
+#echo LANGUAGE=en_US >> /etc/locale.conf
+#echo LC_ALL=C >> /etc/locale.conf
