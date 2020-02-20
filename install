@@ -1,10 +1,15 @@
 fdisk -l
+sd*F = Linux FAT Boot Partition
+sd*EFI = Windows EFI System partition
+sd*L = Linux Partition
+sd*W = Windows NTFS Partition
+
 fdisk /dev/sd*
 
-SCENARIO 1 - If single OS on drive, create fat boot partition - g / n / 1 / enter / +512M / t / 1 / w
-and continue with next partition creation
+SCENARIO 1 - Single OS on drive, create fat boot partition first - g / n / 1 / enter / +512M / t / 1 / w
+and continue with next partition creation (SCENARIO 2)
 --------
-If installing next to windows on same drive, only do this - n / enter / enter / enter / w
+SCENARIO 2 - Installing next to windows on same drive, only do this - n / enter / enter / enter / w
 
 
 mkfs.fat -F32 /dev/sd*F (SCENARIO 1 - CREATING FAT BOOT PARTITION)
@@ -12,6 +17,7 @@ mkfs.ext4 /dev/sd*L
 mount /dev/sd*L /mnt
 mkdir /mnt/boot (SCENARIO 2)
 mount /dev/sd*EFI /mnt/boot (SCENARIO 2 - THIS IS THE WINDOWS EFI SYSTEM PARTITION)
+
 
 timedatectl set-ntp true
 pacstrap /mnt base base-devel linux linux-firmware nano dhcpcd
@@ -25,11 +31,11 @@ mount /dev/sd*F /boot/efi
 grub-install --target=x86_64-efi  --bootloader-id=grub --recheck
 _
 
-_IF WINDOWS IS INSTALLED ON SAME DRIVE -> SD*EFI is WINDOWS EFI PARTITION
-mount /dev/sd*EFI /boot (EFI PARTITION)
+_IF WINDOWS IS INSTALLED ON SAME DRIVE_
+mount /dev/sd*EFI /boot
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 mkdir /mnt/windows
-mount /sd*W /mnt/windows (NTFS partition)
+mount /sd*W /mnt/windows
 _
 grub-mkconfig -o /boot/grub/grub.cfg
 _
