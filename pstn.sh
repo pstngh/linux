@@ -18,7 +18,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
 
-sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator gnome-terminal gnome-disk-utility bluez bluez-utils
+sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator gnome-terminal gnome-disk-utility bluez bluez-utils fuse2 wget
 #sudo pacman -Syu --noconfirm -needed xorg-server xorg-apps lightdm-gtk-greeter xfce4 bash-completion
 #sudo pacman -Rs xfce4-power-manager xfwm4-themes xfce4-appfinder tumbler thunar-volman
 sudo pacman -Syu --noconfirm --needed xterm remmina nemo gvfs-mtp nemo-fileroller gthumb firefox android-tools wine winetricks libvncserver steam mpv pavucontrol rhythmbox cpupower steam-native-runtime mousepad gnome-system-monitor
@@ -27,7 +27,7 @@ sudo pacman -S ttf-roboto noto-fonts
 yay -Syy --noconfirm flirc-bin
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
-yay -S --noconfirm paper-icon-theme-git
+yay -S --noconfirm paper-icon-theme
 yay -S --noconfirm adapta-gtk-theme
 yay -S --noconfirm acestream-launcher
 #yay -S --noconfirm plex-media-player
@@ -99,17 +99,17 @@ sudo sysctl --system
 
 
 #NETWORK SHARE
-#sudo mkdir -p /mnt/Storage
-#sudo mkdir -p /mnt/ubuntu
-#if ! grep -q 192.168.1.197 /etc/fstab; then
-#sudo tee -a /etc/fstab >/dev/null << 'EOF'
-#LABEL=Storage /mnt/Storage auto nosuid,nodev,nofail,noatime 0 0
-#//192.168.1.197/ubuntu /mnt/ubuntu cifs vers=1.0,guest,uid=pstn,comment=systemd.automount,nofail,rw,guest 0 0
-#EOF
-#fi
-#sudo mount -a
+sudo mkdir -p /mnt/Storage
+sudo mkdir -p /mnt/ubuntu
+if ! grep -q 192.168.1.197 /etc/fstab; then
+sudo tee -a /etc/fstab >/dev/null << 'EOF'
+LABEL=Storage /mnt/Storage auto nosuid,nodev,nofail,noatime 0 0
+//192.168.1.197/ubuntu /mnt/ubuntu cifs vers=1.0,guest,uid=pstn,comment=systemd.automount,nofail,rw,guest 0 0
+EOF
+fi
+sudo mount -a
 
-#gsettings set org.cinnamon.desktop.default-applications.terminal exec 'termite'
+
 
 #limit journal size
 sudo sed -i '/SystemMaxUse/ s/.*/SystemMaxUse=10M/' /etc/systemd/journald.conf
@@ -127,6 +127,9 @@ EOF
 #systemctl enable --now systemd-resolved.service
 #sudo openvpn --config x.ovpn
 
+#gsettings set org.cinnamon.desktop.default-applications.terminal exec 'termite'
+
+#sudo systemctl enable systemd-networkd-wait-online
 
 cp -RT /mnt/Storage/Files/config/.config/ ~/.config/
 #shortcuts
@@ -141,7 +144,7 @@ sudo systemctl enable gdm
 mkdir -p ~/.ACEStream
 ln -s /mnt/ubuntu/6TB/.acestream_cache ~/.ACEStream
 
-#sudo systemctl enable systemd-networkd-wait-online
+
 xdg-user-dirs-update
 xdg-user-dirs-update --set MUSIC /mnt/Storage/Music
 xdg-user-dirs-update --set DOWNLOAD /mnt/ubuntu/6TB/Downloads
@@ -172,13 +175,13 @@ gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,m
 gsettings set org.gnome.shell favorite-apps ['firefox.desktop', 'nemo.desktop', 'rhythmbox.desktop', 'plex.desktop', 'vnc.desktop', 'steam-native.desktop', 'windows.desktop', 'org.gnome.Terminal.desktop']
 
 
-#gsettings set org.gnome.rhythmbox.rhythmdb locations ['file:///mnt/Storage/Music']
+gsettings set org.gnome.rhythmbox.rhythmdb locations ['file:///mnt/Storage/Music']
 
 
-#gsettings set org.gnome.shell favorite-apps '['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'firefox.desktop', 'fsearch.desktop', 'night.desktop', '144hz.desktop', 'clone.desktop', 'vnc.desktop', 'rhythmbox.desktop', 'steam-native.desktop']'
+gsettings set org.gnome.shell favorite-apps '['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'firefox.desktop', 'fsearch.desktop', 'night.desktop', '144hz.desktop', 'clone.desktop', 'vnc.desktop', 'rhythmbox.desktop', 'steam-native.desktop']'
 
 
-#gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
+gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
 
 
 #install gnome extensions
@@ -191,8 +194,8 @@ gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell #1236
 
 
 #winetricks
-#winetricks corefonts
-#winetricks tahoma
+winetricks corefonts
+winetricks tahoma
 
 #sudo pacman -Rscn --noconfirm thunar
 #yay -S --noconfirm discord
@@ -202,5 +205,3 @@ gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell #1236
 sudo sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
 sudo systemctl daemon-reexec
 #xset dpms 0 0 600
-#sudo pacman -R linux
-#sudo grub-mkconfig -o /boot/grub/grub.cfg
