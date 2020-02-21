@@ -19,24 +19,17 @@ cd yay
 makepkg -si --noconfirm
 
 sudo pacman -Syu --noconfirm --needed xorg-server xorg-apps pulseaudio bash-completion gnome-shell gnome-tweak-tool gnome-control-center xdg-user-dirs gdm gnome-calculator gnome-terminal gnome-disk-utility bluez bluez-utils fuse2 wget
-#sudo pacman -Syu --noconfirm -needed xorg-server xorg-apps lightdm-gtk-greeter xfce4 bash-completion
-#sudo pacman -Rs xfce4-power-manager xfwm4-themes xfce4-appfinder tumbler thunar-volman
-sudo pacman -Syu --noconfirm --needed xterm remmina nemo gvfs-mtp nemo-fileroller gthumb firefox android-tools wine winetricks libvncserver steam mpv pavucontrol rhythmbox cpupower steam-native-runtime mousepad gnome-system-monitor
-#sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox xf86-video-amdgpu pulseeffects calf flatpak vulkan-radeon
-sudo pacman -S ttf-roboto noto-fonts
+
+sudo pacman -Syu --noconfirm --needed xterm remmina nemo gvfs-mtp nemo-fileroller gthumb firefox android-tools wine winetricks libvncserver steam mpv pavucontrol rhythmbox cpupower steam-native-runtime gedit gnome-system-monitor
+sudo pacman -S ttf-roboto noto-fonts xf86-video-amdgpu vulkan-radeon #flatpak
 yay -Syy --noconfirm flirc-bin
 yay -S --noconfirm xcursor-breeze
 yay -S --noconfirm redshift-minimal
 yay -S --noconfirm paper-icon-theme
 yay -S --noconfirm adapta-gtk-theme
 yay -S --noconfirm acestream-launcher
-#yay -S --noconfirm plex-media-player
-#yay -S --noconfirm scrcpy
+#sudo pacman -Syu --noconfirm --needed virtualbox-host-modules-arch virtualbox pulseeffects calf 
 
-#yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui flat-remix-gnome-git
-
-#sudo sh -c 'echo sg > /etc/modules-load.d/sg.conf'
-#sudo pacman -Rdd thunar
 #Flatpak
 #flatpak install flathub com.discordapp.Discord
 
@@ -50,16 +43,6 @@ Section "InputClass"
 	Option "AccelProfile" "flat"
 EndSection
 EOF
-
-#amdgpu_tweaks
-#mkdir -p /etc/X11/xorg.conf.d/
-#sudo tee /etc/X11/xorg.conf.d/20-amdgpu.conf >/dev/null << EOF
-#Section "Device"
-#	Identifier "AMD"
-#	Driver "amdgpu"
-#	Option "TearFree" "false"
-#EndSection
-#EOF
 
 #aliases
 if ! grep -q acestream ~/.bashrc; then
@@ -97,7 +80,6 @@ fi
 
 sudo sysctl --system
 
-
 #NETWORK SHARE
 sudo mkdir -p /mnt/Storage
 sudo mkdir -p /mnt/ubuntu
@@ -109,8 +91,6 @@ EOF
 fi
 sudo mount -a
 
-
-
 #limit journal size
 sudo sed -i '/SystemMaxUse/ s/.*/SystemMaxUse=10M/' /etc/systemd/journald.conf
 sudo sed -i '/MAKEFLAGS=/s/^.*$/MAKEFLAGS=\"-j\$(nproc)\"/' /etc/makepkg.conf
@@ -121,15 +101,6 @@ sudo sed -e '/load-module module-suspend-on-idle/ s/^#*/#/' -i /etc/pulse/defaul
 sudo tee /etc/default/cpupower >/dev/null << EOF
 governor='performance'
 EOF
-
-#VPN
-#yay -S --noconfirm openvpn-update-systemd-resolved
-#systemctl enable --now systemd-resolved.service
-#sudo openvpn --config x.ovpn
-
-#gsettings set org.cinnamon.desktop.default-applications.terminal exec 'termite'
-
-#sudo systemctl enable systemd-networkd-wait-online
 
 cp -RT /mnt/Storage/Files/config/.config/ ~/.config/
 #shortcuts
@@ -173,14 +144,8 @@ gsettings set org.gnome.desktop.search-providers disable-external 'true'
 gsettings set org.gnome.desktop.session idle-delay '0'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 gsettings set org.gnome.shell favorite-apps ['firefox.desktop', 'nemo.desktop', 'rhythmbox.desktop', 'plex.desktop', 'vnc.desktop', 'steam-native.desktop', 'windows.desktop', 'org.gnome.Terminal.desktop']
-
-
 gsettings set org.gnome.rhythmbox.rhythmdb locations ['file:///mnt/Storage/Music']
-
-
 gsettings set org.gnome.shell favorite-apps '['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'firefox.desktop', 'fsearch.desktop', 'night.desktop', '144hz.desktop', 'clone.desktop', 'vnc.desktop', 'rhythmbox.desktop', 'steam-native.desktop']'
-
-
 gsettings set org.gnome.nautilus.icon-view default-zoom-level 'small'
 
 
@@ -197,11 +162,47 @@ gnome-shell-extension-installer 1160 19 118 615 1379 --restart-shell #1236
 winetricks corefonts
 winetricks tahoma
 
+#esync
+sudo sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
+sudo systemctl daemon-reexec
+
+
+
 #sudo pacman -Rscn --noconfirm thunar
 #yay -S --noconfirm discord
 #yay -S --noconfirm protontricks-git
 #yay -S --noconfirm ttf-ms-fonts
-#esync
-sudo sed -i 's/^#DefaultLimitNOFILE=$/DefaultLimitNOFILE=1048576/g' /etc/systemd/system.conf /etc/systemd/user.conf
-sudo systemctl daemon-reexec
+
 #xset dpms 0 0 600
+
+#XFCE
+#sudo pacman -Syu --noconfirm -needed xorg-server xorg-apps lightdm-gtk-greeter xfce4 bash-completion
+#sudo pacman -Rs xfce4-power-manager xfwm4-themes xfce4-appfinder tumbler thunar-volman
+
+#VPN
+#yay -S --noconfirm openvpn-update-systemd-resolved
+#systemctl enable --now systemd-resolved.service
+#sudo openvpn --config x.ovpn
+
+#gsettings set org.cinnamon.desktop.default-applications.terminal exec 'termite'
+
+#sudo systemctl enable systemd-networkd-wait-online
+
+#amdgpu_tweaks
+#mkdir -p /etc/X11/xorg.conf.d/
+#sudo tee /etc/X11/xorg.conf.d/20-amdgpu.conf >/dev/null << EOF
+#Section "Device"
+#	Identifier "AMD"
+#	Driver "amdgpu"
+#	Option "TearFree" "false"
+#EndSection
+#EOF
+
+
+
+#yay -S --noconfirm makemkv mediainfo-gui mkvtoolnix-gui flat-remix-gnome-git
+
+#sudo sh -c 'echo sg > /etc/modules-load.d/sg.conf'
+#sudo pacman -Rdd thunar
+
+#yay -S --noconfirm plex-media-player
