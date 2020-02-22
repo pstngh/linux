@@ -62,6 +62,8 @@ exit
 umount -a
 telinit 6
 
+curl -O https://raw.githubusercontent.com/pstngh/linux/master/pstn.sh
+
 _IF THERE'S ANY ISSUES_ 1st should be done already
 #echo LANG=en_US.UTF-8 >> /etc/locale.conf
 #echo LANGUAGE=en_US >> /etc/locale.conf
