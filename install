@@ -65,6 +65,15 @@ telinit 6
 curl -O https://raw.githubusercontent.com/pstngh/linux/master/pstn.sh
 
 sudo gedit /etc/default/grub - acpi_backlight=none
+________Uncomment the following
+/etc/pulse/daemon.conf
+
+high-priority = yes
+nice-level = -11
+
+realtime-scheduling = yes
+realtime-priority = 5
+__________
 
 _IF THERE'S ANY ISSUES_ 1st should be done already
 #echo LANG=en_US.UTF-8 >> /etc/locale.conf
