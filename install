@@ -44,7 +44,7 @@ systemctl enable dhcpcd
 
 passwd
 groupadd -r autologin
-useradd -mg users -G wheel,storage,power,autologin -s /bin/bash pstn
+useradd -mg users -G wheel,storage,power,audio,autologin -s /bin/bash pstn
 passwd pstn
 EDITOR=nano visudo
 _UNCOMMENT %wheel ALL=(ALL) ALL
