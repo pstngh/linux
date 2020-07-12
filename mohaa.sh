@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# useradd -m ubuntu
+# usermod -aG sudo ubuntu
+# usermod --shell /bin/bash ubuntu
 sudo dpkg --add-architecture i386
 sudo apt-get update -y
 sudo apt-get upgrade -y
