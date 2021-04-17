@@ -1,0 +1,5 @@
+
+
+sudo apt update
+sudo apt upgrade
+sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox
