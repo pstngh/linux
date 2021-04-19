@@ -3,10 +3,22 @@
 
 sudo apt update
 sudo apt upgrade
-sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox remmina mpv
+sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox remmina mpv nemo
 
 
 sudo rm -rf /usr/share/gnome-shell/extensions
+
+
+###teamviewer
+
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+sudo apt install ./teamviewer_amd64.deb -y
+
+
+
+
+
+
 
 #DASHTOPANEL
 #-- Create Temporary Folder ------------------------------------
