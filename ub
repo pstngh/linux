@@ -1,6 +1,8 @@
 
 #!/bin/bash
 
+sudo apt purge --autoremove nautilussudo apt purge --autoremove nautilus
+
 sudo apt update
 sudo apt upgrade
 sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox remmina mpv nemo
