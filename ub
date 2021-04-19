@@ -1,12 +1,13 @@
 
 #!/bin/bash
 
-sudo apt purge --autoremove nautilussudo apt purge --autoremove nautilus
+sudo apt purge --autoremove nautilussudo apt purge --autoremove nautilus gnome-bluetooth gnome-characters gnome-accessibility-themes gnome-font-viewerubuntu bloat
+snap remove snap-store
 
 sudo apt update
 sudo apt upgrade
 sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox remmina mpv nemo
-
+sudo snap install discord
 
 sudo rm -rf /usr/share/gnome-shell/extensions
 
