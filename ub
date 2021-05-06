@@ -22,7 +22,6 @@ sudo apt install ./teamviewer_amd64.deb -y
 
 
 
-
 #DASHTOPANEL
 #-- Create Temporary Folder ------------------------------------
 declare folder_name="$RANDOM-dash-to-panel";
