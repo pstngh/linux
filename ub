@@ -3,11 +3,16 @@ gnome-characters
 
 sudo apt purge --autoremove nautilussudo apt purge --autoremove nautilus gnome-bluetooth gnome-characters gnome-accessibility-themes gnome-font-viewerubuntu bloat
 snap remove snap-store
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 sudo apt update
 sudo apt upgrade
-sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox remmina mpv nemo
+sudo apt install torbrowser-launcher gnome-disk-utility gnome-tweak-tool rhythmbox remmina mpv nemo flatpak
 sudo snap install discord
+sudo snap install electron-mail
+sudo snap install telegram-desktop
+sudo snap install whatsapp-for-linux
+flatpak install flathub io.freetubeapp.FreeTube
 
 sudo rm -rf /usr/share/gnome-shell/extensions
 
