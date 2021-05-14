@@ -23,7 +23,15 @@ wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 sudo apt install ./teamviewer_amd64.deb -y
 
 
-
+#NETWORK SHARE
+sudo mkdir -p /mnt/ubuntu
+if ! grep -q 192.168.1.195 /etc/fstab; then
+sudo tee -a /etc/fstab >/dev/null << 'EOF'
+//192.168.1.195/ubuntu /mnt/ubuntu  cifs  guest,uid=1000,iocharset=utf8  0  0
+LABEL=Storage /mnt/Storage auto nosuid,nodev,nofail 0 0
+EOF
+fi
+sudo mount -a
 
 
 
