@@ -1,4 +1,3 @@
-gnome-characters
 #!/bin/bash
 
 sudo apt purge --autoremove nautilussudo apt purge --autoremove nautilus gnome-bluetooth gnome-characters gnome-accessibility-themes gnome-font-viewerubuntu bloat
