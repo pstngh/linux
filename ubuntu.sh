@@ -1,24 +1,59 @@
 #!/bin/bash
 
 snap remove snap-store
-#sudo apt purge --autoremove pidgin bluez gnome-software libreoffice-draw libreoffice-draw simple-scan xfce4-dict libreoffice-math yelp thunderbird transmission-gtk gucharmap snapd gnome-mines gnome-sudoku sgt-puzzles xfburn parole gigolo onboard gimp apport popularity-contest
-#sudo apt purge --autoremove nautilus gnome-bluetooth gnome-characters gnome-accessibility-themes gnome-font-viewer xfce4-netload-plugin xfce4-mailwatch-plugin xfce4-screensaver xfce4-notes engrampa info thunar* vim-common xfce4-power-manager-plugins -y
+sudo apt purge --autoremove pidgin
+sudo apt purge --autoremove gnome-software
+sudo apt purge --autoremove libreoffice-draw
+sudo apt purge --autoremove bluez
+sudo apt purge --autoremove simple-scan
+sudo apt purge --autoremove xfce4-dict
+sudo apt purge --autoremove libreoffice-math
+sudo apt purge --autoremove yelp
+sudo apt purge --autoremove thunderbird
+sudo apt purge --autoremove transmission-gtk
+sudo apt purge --autoremove gucharmap
+sudo apt purge --autoremove snapd
+sudo apt purge --autoremove gnome-mines
+sudo apt purge --autoremove gnome-sudoku
+sudo apt purge --autoremove sgt-puzzles
+sudo apt purge --autoremove xfburn
+sudo apt purge --autoremove parole
+sudo apt purge --autoremove gigolo
+sudo apt purge --autoremove onboard
+sudo apt purge --autoremove gimp
+sudo apt purge --autoremove apport
+sudo apt purge --autoremove popularity-contest
+sudo apt purge --autoremove gnome-bluetooth
+sudo apt purge --autoremove gnome-characters
+sudo apt purge --autoremove gnome-accessibility-themes
+sudo apt purge --autoremove gnome-font-viewer
+sudo apt purge --autoremove xfce4-netload-plugin
+sudo apt purge --autoremove xfce4-mailwatch-plugin
+sudo apt purge --autoremove xfce4-screensaver
+sudo apt purge --autoremove xfce4-notes
+sudo apt purge --autoremove engrampa
+sudo apt purge --autoremove info
+sudo apt purge --autoremove vim-common
+sudo apt purge --autoremove xfce4-power-manager-plugins
+sudo apt purge --autoremove 
+sudo apt purge --autoremove 
+
 #read -n 1 -s -r -p "Press any key to continue"
 #sudo dpkg --add-architecture i386
 #wget -nc https://dl.winehq.org/wine-builds/winehq.key
 #sudo apt-key add winehq.key
 #sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-
-
-curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo add-apt-repository ppa:fossfreedom/rhythmbox-plugins -y
+#sudo add-apt-repository ppa:fossfreedom/rhythmbox-plugins -y
 sudo add-apt-repository ppa:atareao/telegram
 sudo add-apt-repository ppa:papirus/papirus
 sudo apt update
 sudo apt upgrade
-sudo apt install --no-install-recommends spotify-client telegram arc-theme gnome-disk-utility rhythmbox vlc mpv wget rhythmbox-plugin-close-on-hide papirus-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk ssh sshpass
+sudo apt install --no-install-recommends curl telegram arc-theme gnome-disk-utility rhythmbox vlc mpv wget papirus-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk ssh sshpass rhythmbox-plugin-close-on-hide
 
+#spotify
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt install spotify-client -y
 wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
 sudo apt install ~/discord.deb -y
 wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
