@@ -8,14 +8,16 @@ snap remove snap-store
 #wget -nc https://dl.winehq.org/wine-builds/winehq.key
 #sudo apt-key add winehq.key
 #sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+
+
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo add-apt-repository ppa:fossfreedom/rhythmbox-plugins -y
 sudo add-apt-repository ppa:atareao/telegram
+sudo add-apt-repository ppa:papirus/papirus
 sudo apt update
 sudo apt upgrade
-sudo apt install --no-install-recommends spotify-client telegram arc-theme gnome-disk-utility rhythmbox remmina vlc mpv ssh nemo sshpass wget wine-stable gdebi-core rhythmbox-plugin-close-on-hide paper-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk
-#echo export 'XDG_DATA_DIRS="/opt/myapp/share:$XDG_DATA_DIRS"' >> ~/.xsessionrc
+sudo apt install --no-install-recommends spotify-client telegram arc-theme gnome-disk-utility rhythmbox vlc mpv wget rhythmbox-plugin-close-on-hide papirus-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk ssh sshpass
 
 wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
 sudo apt install ~/discord.deb -y
