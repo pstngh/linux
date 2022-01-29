@@ -39,17 +39,17 @@ sudo apt purge --autoremove
 sudo apt purge --autoremove 
 
 #read -n 1 -s -r -p "Press any key to continue"
-#sudo dpkg --add-architecture i386
-#wget -nc https://dl.winehq.org/wine-builds/winehq.key
-#sudo apt-key add winehq.key
-#sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+sudo dpkg --add-architecture i386
+wget -nc https://dl.winehq.org/wine-builds/winehq.key
+sudo apt-key add winehq.key
+sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
 #sudo add-apt-repository ppa:fossfreedom/rhythmbox-plugins -y
 sudo add-apt-repository ppa:atareao/telegram
 sudo add-apt-repository ppa:papirus/papirus
 sudo apt update
 sudo apt upgrade
 sudo apt install --no-install-recommends curl telegram arc-theme gnome-disk-utility rhythmbox vlc mpv wget papirus-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk ssh sshpass rhythmbox-plugin-close-on-hide
-
+sudo apt install --install-recommends winehq-stable -y
 #spotify
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
