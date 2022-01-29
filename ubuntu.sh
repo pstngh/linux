@@ -35,8 +35,11 @@ sudo apt purge --autoremove engrampa
 sudo apt purge --autoremove info
 sudo apt purge --autoremove vim-common
 sudo apt purge --autoremove xfce4-power-manager-plugins
-sudo apt purge --autoremove 
-sudo apt purge --autoremove 
+sudo apt purge --autoremove numix-gtk-theme 
+sudo apt purge --autoremove greybird-gtk-theme
+sudo apt purge --autoremove elementary-xfce-icon-theme
+sudo apt purge --autoremove
+sudo apt purge --autoremove
 
 #read -n 1 -s -r -p "Press any key to continue"
 sudo dpkg --add-architecture i386
