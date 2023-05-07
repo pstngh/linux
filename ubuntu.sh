@@ -7,7 +7,7 @@ sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/
 sudo add-apt-repository ppa:atareao/telegram
 sudo apt update
 sudo apt upgrade
-sudo apt install --no-install-recommends curl telegram gnome-disk-utility wget -y
+sudo apt install --no-install-recommends curl telegram gnome-disk-utility wget flatpak -y
 sudo apt install --install-recommends winehq-stable -y
 #spotify
 curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
@@ -17,6 +17,8 @@ wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format
 sudo apt install ~/discord.deb -y
 sudo snap install tradingview
 sudo apt purge --autoremove skanlite kdeconnect
+
+sudo add-apt-repository ppa:flatpak/stable
 
 #swap disable
 sudo swapoff -a
