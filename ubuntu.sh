@@ -52,7 +52,5 @@ sudo sed -i '/swapfile/d' /etc/fstab
 #/etc/default/grub mitigations=off
 #sudo update-grub
 
-echo "alias ffa='sshpass -p pKdTxU6XY2user ssh ubuntu@185.107.96.110 -p 22010'" >> ~/.bashrc
-
 # __GL_ExtensionStringVersion=17700 wine ./MOHAA.EXE
 
