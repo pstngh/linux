@@ -35,23 +35,12 @@ Section "InputClass"
 EndSection
 EOF
 
-
-
-#systemctl --user enable redshift.service
-
-#CPU GOVERNOR
-sudo apt-get install cpufrequtils
-echo 'GOVERNOR="performance"' | sudo tee /etc/default/cpufrequtils
-sudo systemctl disable ondemand
-
 #swap disable
 sudo swapoff -a
 sudo sed -i '/swapfile/d' /etc/fstab
 #sudo sed -i '/ swap / s/^/#/' /etc/fstab
 #sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-#/etc/default/grub mitigations=off
-#sudo update-grub
 
 # __GL_ExtensionStringVersion=17700 wine ./MOHAA.EXE
 
