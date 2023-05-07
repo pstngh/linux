@@ -12,10 +12,10 @@ sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/
 sudo add-apt-repository ppa:atareao/telegram
 sudo apt update
 sudo apt upgrade
-sudo apt install --no-install-recommends curl telegram arc-theme gnome-disk-utility rhythmbox vlc mpv wget papirus-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk ssh sshpass rhythmbox-plugin-close-on-hide
+sudo apt install --no-install-recommends curl telegram gnome-disk-utility wget -y
 sudo apt install --install-recommends winehq-stable -y
 #spotify
-curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt install spotify-client -y
 wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
