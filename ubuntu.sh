@@ -1,54 +1,15 @@
 #!/bin/bash
 
-snap remove snap-store
-sudo apt purge --autoremove pidgin
-sudo apt purge --autoremove gnome-software
-sudo apt purge --autoremove libreoffice-draw
-sudo apt purge --autoremove bluez
-sudo apt purge --autoremove simple-scan
-sudo apt purge --autoremove xfce4-dict
-sudo apt purge --autoremove libreoffice-math
-sudo apt purge --autoremove yelp
-sudo apt purge --autoremove thunderbird
-sudo apt purge --autoremove transmission-gtk
-sudo apt purge --autoremove gucharmap
-sudo apt purge --autoremove snapd
-sudo apt purge --autoremove gnome-mines
-sudo apt purge --autoremove gnome-sudoku
-sudo apt purge --autoremove sgt-puzzles
-sudo apt purge --autoremove xfburn
-sudo apt purge --autoremove parole
-sudo apt purge --autoremove gigolo
-sudo apt purge --autoremove onboard
-sudo apt purge --autoremove gimp
-sudo apt purge --autoremove apport
-sudo apt purge --autoremove popularity-contest
-sudo apt purge --autoremove gnome-bluetooth
-sudo apt purge --autoremove gnome-characters
-sudo apt purge --autoremove gnome-accessibility-themes
-sudo apt purge --autoremove gnome-font-viewer
-sudo apt purge --autoremove xfce4-netload-plugin
-sudo apt purge --autoremove xfce4-mailwatch-plugin
-sudo apt purge --autoremove xfce4-screensaver
-sudo apt purge --autoremove xfce4-notes
-sudo apt purge --autoremove engrampa
-sudo apt purge --autoremove info
-sudo apt purge --autoremove vim-common
-sudo apt purge --autoremove xfce4-power-manager-plugins
-sudo apt purge --autoremove numix-gtk-theme 
-sudo apt purge --autoremove greybird-gtk-theme
-sudo apt purge --autoremove elementary-xfce-icon-theme
-sudo apt purge --autoremove
+#snap remove snap-store
+#sudo apt purge --autoremove snapd
 sudo apt purge --autoremove
 
 #read -n 1 -s -r -p "Press any key to continue"
 sudo dpkg --add-architecture i386
-wget -nc https://dl.winehq.org/wine-builds/winehq.key
-sudo apt-key add winehq.key
-sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-#sudo add-apt-repository ppa:fossfreedom/rhythmbox-plugins -y
+sudo mkdir -pm755 /etc/apt/keyrings
+sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
 sudo add-apt-repository ppa:atareao/telegram
-sudo add-apt-repository ppa:papirus/papirus
 sudo apt update
 sudo apt upgrade
 sudo apt install --no-install-recommends curl telegram arc-theme gnome-disk-utility rhythmbox vlc mpv wget papirus-icon-theme gnome-tweak-tool -y #xdg-desktop-portal-gtk ssh sshpass rhythmbox-plugin-close-on-hide
@@ -59,8 +20,7 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 sudo apt install spotify-client -y
 wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
 sudo apt install ~/discord.deb -y
-wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-sudo apt install ./teamviewer_amd64.deb -y
+
 
 
 #mouseacc
@@ -75,20 +35,6 @@ EndSection
 EOF
 
 
-#mkdir -p /home/pstn/.config/redshift/
-#sudo tee /home/pstn/.config/redshift/redshift.conf >/dev/null << EOF
-Section "InputClass"
-	[redshift]
-	;temp-day=5700
-	temp-night=4500
-	transition=1
-	location-provider=manual
-	adjustment-method=randr
-	[manual]
-	lat=45.5
-	lon=-73.5
-EndSection
-#EOF
 
 #systemctl --user enable redshift.service
 
@@ -109,9 +55,4 @@ sudo sed -i '/swapfile/d' /etc/fstab
 echo "alias ffa='sshpass -p pKdTxU6XY2user ssh ubuntu@185.107.96.110 -p 22010'" >> ~/.bashrc
 
 # __GL_ExtensionStringVersion=17700 wine ./MOHAA.EXE
-
-#gsettings set org.cinnamon.desktop.default-applications.terminal exec xfce4-terminal
-#sudo gsettings set org.cinnamon.desktop.default-applications.terminal exec xfce4-terminal
-#gsettings set org.gnome.desktop.interface enable-animations false
-#gsettings set org.gnome.desktop.interface gtk-enable-primary-paste false
 
