@@ -18,7 +18,9 @@ sudo apt install ~/discord.deb -y
 sudo snap install tradingview
 sudo apt purge --autoremove skanlite kdeconnect
 
-sudo add-apt-repository ppa:flatpak/stable
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.plexamp.Plexamp
+
 
 #swap disable
 sudo swapoff -a
