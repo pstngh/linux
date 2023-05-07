@@ -18,18 +18,6 @@ sudo apt install ~/discord.deb -y
 sudo snap install tradingview
 sudo apt purge --autoremove
 
-
-#mouseacc
-sudo mkdir -p /etc/X11/xorg.conf.d/
-sudo tee /etc/X11/xorg.conf.d/50-mouse.conf >/dev/null << EOF
-Section "InputClass"
-	Identifier "Mouse"
-	Driver "libinput"
-	MatchIsPointer "yes"
-	Option "AccelProfile" "flat"
-EndSection
-EOF
-
 #swap disable
 sudo swapoff -a
 sudo sed -i '/swapfile/d' /etc/fstab
