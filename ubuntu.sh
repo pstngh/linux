@@ -20,6 +20,7 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 sudo apt install spotify-client -y
 wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
 sudo apt install ~/discord.deb -y
+sudo snap install tradingview
 
 
 
