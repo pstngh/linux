@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#snap remove snap-store
-#sudo apt purge --autoremove snapd
-sudo apt purge --autoremove
-
-#read -n 1 -s -r -p "Press any key to continue"
 sudo dpkg --add-architecture i386
 sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
@@ -21,7 +16,7 @@ sudo apt install spotify-client -y
 wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
 sudo apt install ~/discord.deb -y
 sudo snap install tradingview
-
+sudo apt purge --autoremove
 
 
 #mouseacc
